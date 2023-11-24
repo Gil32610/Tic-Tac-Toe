@@ -44,19 +44,17 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     BoxWithConstraints (
         modifier = Modifier
-            .padding(start = 16.dp, end = 16.dp, top = 172.dp, bottom = 172.dp)
+            .padding(start = 16.dp, end = 16.dp, top = 245.dp, bottom = 245.dp)
             .background(Color.Gray)
             .fillMaxSize()
     ){
-        val maxHeight = constraints.maxHeight
-        val maxWidth = constraints.maxWidth
-        HorizontalLine(maxWidth = constraints.maxWidth - 0f, yOffset =  constraints.maxHeight/3f)
-        HorizontalLine(maxWidth = constraints.maxWidth -0f, yOffset =45f + constraints.maxHeight/3f)
-        Text(
-        text="width: $maxWidth  \n" +
-                "height: $maxHeight"
-        )
-        VerticalLine(xOffset =constraints.maxWidth/3f , maxHeight = (constraints.maxHeight + 0f))
+        val quarterHeight = constraints.maxHeight/3f
+        val quarterWidth = constraints.maxWidth/3f
+        HorizontalLine(maxWidth = constraints.maxWidth - 0f, quarterHeight)
+        HorizontalLine(maxWidth = constraints.maxWidth -0f, yOffset =constraints.maxHeight - quarterHeight)
+
+        VerticalLine(xOffset =quarterWidth , maxHeight = (constraints.maxHeight + 0f))
+        VerticalLine(xOffset = constraints.maxWidth - quarterWidth, maxHeight = (constraints.maxHeight + 0f))
     }
 }
 
