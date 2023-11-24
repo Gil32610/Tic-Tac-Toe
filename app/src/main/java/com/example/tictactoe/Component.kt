@@ -71,7 +71,7 @@ fun HorizontalWinLine(lineNumber: Int){
         drawLine(
             cap = StrokeCap.Round,
             strokeWidth =15f,
-            color = Color.Red,
+            color = Color.Black,
             start = Offset(x=0f,y=size.width*winningRow/6),
             end = Offset(x=size.width,y = size.width*winningRow/6)
         )
@@ -93,7 +93,7 @@ fun VerticalWinLine(lineNumber: Int){
         drawLine(
             cap = StrokeCap.Round,
             strokeWidth =15f,
-            color = Color.Red,
+            color = Color.Black,
             start = Offset(x=size.width*winningColumn/6,y=0f),
             end = Offset(x = size.width*winningColumn/6,y = size.height)
         )
@@ -110,7 +110,7 @@ fun DiagonalWinLine(diagonalNumber: Int){
         drawLine(
             cap = StrokeCap.Round,
             strokeWidth =15f,
-            color = Color.Red,
+            color = Color.Black,
             start = Offset(x=result,y=0f),
             end = Offset(x = offsetXPos ,y = size.height)
         )

@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
 import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -42,6 +43,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -84,20 +86,25 @@ fun TicTacToeScreen(
             val charSize = 16.sp
             val family = FontFamily.Monospace
             Text(
-                text = "the truth",
+                text = "Player X:${state.playerCrossCount}",
                 fontSize = charSize,
-                fontFamily = family
+                fontFamily = family,
+                color = Color.Red,
+                fontWeight = FontWeight.Bold
 
             )
             Text(
-                text = "score",
+                text = "Draw:${state.drawCount}",
                 fontSize = charSize,
                 fontFamily = family
             )
             Text(
-                text="another score",
+                text="Player 'O':${state.playerCircleCount}",
                 fontSize = charSize,
-                fontFamily = family
+                fontFamily = family,
+                color = Color.Blue,
+                fontWeight = FontWeight.Bold
+
             )
         }
         Text(
@@ -106,7 +113,7 @@ fun TicTacToeScreen(
             fontSize = 50.sp,
             fontWeight = FontWeight.Bold
         )
-        TicTacToeBox(viewModel = viewModel)
+        TicTacToeBox(viewModel = viewModel, state = state)
         Text(
             text = state.messageTurn,
             fontFamily = FontFamily.Monospace,
@@ -114,7 +121,9 @@ fun TicTacToeScreen(
         )
         Button(
             onClick = {
-
+               viewModel.onAction(
+                   UserActions.PlayAgainButtonClicked
+               )
             },
             shape = RoundedCornerShape(5.dp),
             colors = ButtonDefaults.buttonColors(
@@ -135,7 +144,7 @@ fun TicTacToeScreen(
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun TicTacToeBox( modifier: Modifier = Modifier,viewModel: GameViewModel) {
+fun TicTacToeBox( modifier: Modifier = Modifier,viewModel: GameViewModel, state: GameState) {
     BoxWithConstraints (
         modifier = Modifier
 
@@ -178,7 +187,7 @@ fun TicTacToeBox( modifier: Modifier = Modifier,viewModel: GameViewModel) {
                     ){
                         AnimatedVisibility(
                             visible = viewModel.boardCells[cellNumber]!= BoardCellValue.NONE,
-                            enter = scaleIn(tween(1000))
+                            enter = scaleIn(tween(400))
                             ) {
                             if(boardCellValue== BoardCellValue.CROSS){
                                 Cross()
@@ -193,6 +202,12 @@ fun TicTacToeBox( modifier: Modifier = Modifier,viewModel: GameViewModel) {
                 }
             }
 
+        }
+        AnimatedVisibility(visible = state.hasWon,
+            enter = scaleIn(tween(100))
+        ) {
+            VictoryLine(state = state)
+            
         }
     }
 
@@ -239,6 +254,21 @@ fun VerticalLine(xOffset: Float, maxHeight: Float){
             cap = StrokeCap.Round
         )
 
+    }
+}
+
+@Composable
+fun VictoryLine(state: GameState){
+    when(state.victoryType){
+        VictoryType.HORIZONTAL1 -> HorizontalWinLine(lineNumber = 1)
+        VictoryType.HORIZONTAL2 -> HorizontalWinLine(lineNumber = 2)
+        VictoryType.HORIZONTAL3 -> HorizontalWinLine(lineNumber = 3)
+        VictoryType.VERTICAL1 -> VerticalWinLine(lineNumber = 1)
+        VictoryType.VERTICAL2 -> VerticalWinLine(lineNumber = 2)
+        VictoryType.VERTICAL3 -> VerticalWinLine(lineNumber = 3)
+        VictoryType.DIAGONAL0 -> DiagonalWinLine(diagonalNumber = 0)
+        VictoryType.DIAGONAL1 -> DiagonalWinLine(diagonalNumber = 1)
+        VictoryType.NONE -> {}
     }
 }
 
