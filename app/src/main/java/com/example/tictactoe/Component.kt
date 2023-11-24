@@ -99,6 +99,23 @@ fun VerticalWinLine(lineNumber: Int){
         )
     }
 }
+@Composable
+fun DiagonalWinLine(diagonalNumber: Int){
+
+    Canvas(modifier = Modifier
+        .size(904.dp)
+        .aspectRatio(1f)){
+        val result = diagonalNumber * size.width +0f
+        val offsetXPos = if(result>0) 0f else size.width
+        drawLine(
+            cap = StrokeCap.Round,
+            strokeWidth =15f,
+            color = Color.Red,
+            start = Offset(x=result,y=0f),
+            end = Offset(x = offsetXPos ,y = size.height)
+        )
+    }
+}
 
 @Preview(showBackground = true)
 @Composable
@@ -109,5 +126,7 @@ fun Previews(){
     VerticalWinLine(lineNumber = 1)
     VerticalWinLine(lineNumber = 2)
     VerticalWinLine(lineNumber = 3)
+    DiagonalWinLine(diagonalNumber = 1)
+    DiagonalWinLine(diagonalNumber = 0)
 
 }
