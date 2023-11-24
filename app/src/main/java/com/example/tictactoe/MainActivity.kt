@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -29,6 +30,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -121,14 +123,15 @@ fun TicTacToeBox( modifier: Modifier = Modifier) {
 
             .background(Color.Gray, shape = RoundedCornerShape(20.dp))
             .fillMaxWidth()
-            .aspectRatio(1f),
+            .aspectRatio(1f)
+            .padding(16.dp),
         contentAlignment = Alignment.Center
     ){
-        val width = constraints.maxWidth+ 0f
-        val height =constraints.maxHeight+0f
+        val width = constraints.maxWidth
+        val height =constraints.maxHeight
 
 
-        TicTacToeLines(width = width, height =height)
+        TicTacToeLines(width = width+ 0f, height =height+0f)
         Text(
             text = "width: $width\nheight: $height"
         )
@@ -157,7 +160,8 @@ fun HorizontalLine(maxWidth: Float, yOffset: Float){
             color = Color.Black,
             start = Offset(0f, yOffset),
             end = Offset(maxWidth, yOffset),
-            strokeWidth = 20f,
+            strokeWidth = 15f,
+            cap = StrokeCap.Round
         )
 
     }
@@ -172,7 +176,8 @@ fun VerticalLine(xOffset: Float, maxHeight: Float){
             color = Color.Black,
             start = Offset(xOffset, 0f),
             end = Offset(xOffset, maxHeight),
-            strokeWidth = 20f,
+            strokeWidth = 15f,
+            cap = StrokeCap.Round
         )
 
     }
