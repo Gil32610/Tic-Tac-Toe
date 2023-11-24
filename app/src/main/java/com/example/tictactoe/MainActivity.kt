@@ -41,17 +41,22 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
 
+
     BoxWithConstraints (
         modifier = Modifier
-            .padding(16.dp)
+            .padding(start = 16.dp, end = 16.dp, top = 172.dp, bottom = 172.dp)
             .background(Color.Gray)
             .fillMaxSize()
     ){
-        HorizontalLine(maxWidth = constraints.maxWidth - 0f, yOffset = 36f + constraints.maxHeight/2f)
-        val maxWidth = constraints.maxHeight
+        val maxHeight = constraints.maxHeight
+        val maxWidth = constraints.maxWidth
+        HorizontalLine(maxWidth = constraints.maxWidth - 0f, yOffset =  constraints.maxHeight/3f)
+        HorizontalLine(maxWidth = constraints.maxWidth -0f, yOffset =45f + constraints.maxHeight/3f)
         Text(
-        text="$maxWidth"
+        text="width: $maxWidth  \n" +
+                "height: $maxHeight"
         )
+        VerticalLine(xOffset =constraints.maxWidth/3f , maxHeight = (constraints.maxHeight + 0f))
     }
 }
 
@@ -64,7 +69,22 @@ fun HorizontalLine(maxWidth: Float, yOffset: Float){
             color = Color.Black,
             start = Offset(0f, yOffset),
             end = Offset(maxWidth, yOffset),
-            strokeWidth = 30f,
+            strokeWidth = 20f,
+        )
+
+    }
+}
+
+@Composable
+fun VerticalLine(xOffset: Float, maxHeight: Float){
+    Canvas(modifier = Modifier
+        .fillMaxSize()
+    ){
+        drawLine(
+            color = Color.Black,
+            start = Offset(xOffset, 0f),
+            end = Offset(xOffset, maxHeight),
+            strokeWidth = 20f,
         )
 
     }
