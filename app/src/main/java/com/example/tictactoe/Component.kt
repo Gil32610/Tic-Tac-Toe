@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 @Composable
 fun Cross(){
     Canvas(modifier = Modifier
-        .padding(5.dp)
+        .padding(top = 20.dp)
         .size(60.dp))
     {
         drawLine(
@@ -46,7 +46,7 @@ fun Cross(){
 @Composable
 fun TicTacToeCircle(){
     Canvas(modifier = Modifier
-        .padding(5.dp)
+        .padding(20.dp)
         .size(60.dp)
         ){
         drawCircle(
@@ -121,12 +121,4 @@ fun DiagonalWinLine(diagonalNumber: Int){
 @Composable
 fun Previews(){
     HorizontalWinLine(lineNumber = 1)
-    HorizontalWinLine(lineNumber = 2)
-    HorizontalWinLine(lineNumber = 3)
-    VerticalWinLine(lineNumber = 1)
-    VerticalWinLine(lineNumber = 2)
-    VerticalWinLine(lineNumber = 3)
-    DiagonalWinLine(diagonalNumber = 1)
-    DiagonalWinLine(diagonalNumber = 0)
-
 }

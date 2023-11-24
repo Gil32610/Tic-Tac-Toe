@@ -3,8 +3,14 @@ package com.example.tictactoe
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -17,6 +23,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -39,26 +47,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tictactoe.ui.theme.TicTacToeTheme
+import androidx.lifecycle.viewmodel.initializer
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             TicTacToeTheme {
+                    TicTacToeScreen(viewModel = GameViewModel())
                 // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
 
-                }
             }
         }
     }
 }
 
 @Composable
-fun TicTacToeScreen(){
+fun TicTacToeScreen(
+    viewModel: GameViewModel
+){
+    val state = viewModel.state
+
     Column(modifier = Modifier
         .background(Color.LightGray)
         .padding(16.dp)
@@ -71,18 +81,23 @@ fun TicTacToeScreen(){
             verticalAlignment = Alignment.CenterVertically
         )
         {
-            val charSize = 22.sp
+            val charSize = 16.sp
+            val family = FontFamily.Monospace
             Text(
                 text = "the truth",
-                fontSize = charSize
+                fontSize = charSize,
+                fontFamily = family
+
             )
             Text(
                 text = "score",
-                fontSize = charSize
+                fontSize = charSize,
+                fontFamily = family
             )
             Text(
                 text="another score",
-                fontSize = charSize
+                fontSize = charSize,
+                fontFamily = family
             )
         }
         Text(
@@ -91,9 +106,11 @@ fun TicTacToeScreen(){
             fontSize = 50.sp,
             fontWeight = FontWeight.Bold
         )
-        TicTacToeBox()
+        TicTacToeBox(viewModel = viewModel)
         Text(
-            text = stringResource(R.string.x_player_turn)
+            text = state.messageTurn,
+            fontFamily = FontFamily.Monospace,
+            fontSize=24.sp
         )
         Button(
             onClick = {
@@ -116,8 +133,9 @@ fun TicTacToeScreen(){
 }
 
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun TicTacToeBox( modifier: Modifier = Modifier) {
+fun TicTacToeBox( modifier: Modifier = Modifier,viewModel: GameViewModel) {
     BoxWithConstraints (
         modifier = Modifier
 
@@ -135,6 +153,47 @@ fun TicTacToeBox( modifier: Modifier = Modifier) {
         Text(
             text = "width: $width\nheight: $height"
         )
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(3),
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f)
+        ){
+            viewModel.boardCells.forEach{(cellNumber,boardCellValue)->
+                item{
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(1f)
+                            .clickable(
+                                interactionSource = MutableInteractionSource(),
+                                indication = null
+                            ) {
+                                viewModel.onAction(
+                                    UserActions.BoardTapped(cellNumber)
+                                )
+                            },
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ){
+                        AnimatedVisibility(
+                            visible = viewModel.boardCells[cellNumber]!= BoardCellValue.NONE,
+                            enter = scaleIn(tween(1000))
+                            ) {
+                            if(boardCellValue== BoardCellValue.CROSS){
+                                Cross()
+                            }
+                            else if(boardCellValue==BoardCellValue.CIRCLE){
+                                TicTacToeCircle()
+                            }
+                        }
+
+
+                    }
+                }
+            }
+
+        }
     }
 
 
@@ -187,6 +246,6 @@ fun VerticalLine(xOffset: Float, maxHeight: Float){
 @Composable
 fun GreetingPreview() {
     TicTacToeTheme {
-        TicTacToeScreen()
+        TicTacToeScreen(viewModel = GameViewModel())
     }
 }
