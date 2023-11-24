@@ -31,15 +31,16 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+
                 }
             }
         }
     }
 }
 
+
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun TicTacToeBox(name: String, modifier: Modifier = Modifier) {
 
 
     BoxWithConstraints (
@@ -96,6 +97,6 @@ fun VerticalLine(xOffset: Float, maxHeight: Float){
 @Composable
 fun GreetingPreview() {
     TicTacToeTheme {
-        Greeting("Android")
+
     }
 }
