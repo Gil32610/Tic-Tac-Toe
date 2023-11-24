@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Tic Tac Toe</string>
+    <string name="tictactoe_title">TicTacToe</string>
+    <string name="o_player_turn">Player \'O\' turn</string>
+    <string name="x_player_turn">Player \'X\' turn</string>
+    <string name="restart_game">Restart Game</string>
 </resources>
