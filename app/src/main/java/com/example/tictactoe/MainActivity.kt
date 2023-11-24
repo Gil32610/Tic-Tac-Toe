@@ -99,7 +99,7 @@ fun TicTacToeScreen(
                 fontFamily = family
             )
             Text(
-                text="Player 'O':${state.playerCircleCount}",
+                text="Player O:${state.playerCircleCount}",
                 fontSize = charSize,
                 fontFamily = family,
                 color = Color.Blue,
@@ -127,8 +127,8 @@ fun TicTacToeScreen(
             },
             shape = RoundedCornerShape(5.dp),
             colors = ButtonDefaults.buttonColors(
-                contentColor = Color.Blue,
-                containerColor = Color.Red
+                contentColor = Color.White,
+                containerColor = Color.Blue
             )
         ){
             Text(
@@ -159,9 +159,6 @@ fun TicTacToeBox( modifier: Modifier = Modifier,viewModel: GameViewModel, state:
 
 
         TicTacToeLines(width = width+ 0f, height =height+0f)
-        Text(
-            text = "width: $width\nheight: $height"
-        )
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
             modifier = Modifier

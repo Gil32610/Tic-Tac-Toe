@@ -36,7 +36,7 @@ class GameViewModel: ViewModel() {
             boardCells[i] = BoardCellValue.NONE
         }
         state = state.copy(
-            messageTurn = "Player 'X' turn",
+            messageTurn = "Player X turn",
             currentTurn = BoardCellValue.CROSS,
             victoryType = VictoryType.NONE,
             hasWon = false
@@ -51,7 +51,7 @@ class GameViewModel: ViewModel() {
             boardCells[cellNumber] = BoardCellValue.CROSS
             if(hasWon(BoardCellValue.CROSS)){
                 state = state.copy(
-                    messageTurn = "Player 'X' Won",
+                    messageTurn = "Player X Won",
                     playerCrossCount = state.playerCrossCount+1,
                     currentTurn = BoardCellValue.NONE,
                     hasWon = true
@@ -64,20 +64,20 @@ class GameViewModel: ViewModel() {
             }else{
                 state = state.copy(
                     currentTurn = BoardCellValue.CIRCLE,
-                    messageTurn = "Player 'O' turn"
+                    messageTurn = "Player O turn"
                 )
             }
         }else if(state.currentTurn == BoardCellValue.CIRCLE){
             boardCells[cellNumber] = BoardCellValue.CIRCLE
             if(hasWon(BoardCellValue.CIRCLE)){
                 state = state.copy(
-                    messageTurn = "Player 'O' Won",
+                    messageTurn = "Player O Won",
                     playerCircleCount = state.playerCircleCount+1,
                     currentTurn = BoardCellValue.NONE,
                     hasWon = true
                 )
             }
-            if(isBoardFull()){
+           else if(isBoardFull()){
                 state = state.copy(
                     messageTurn = "Game Draw!",
                     drawCount = state.drawCount+1

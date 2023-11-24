@@ -73,7 +73,8 @@ fun HorizontalWinLine(lineNumber: Int){
             strokeWidth =15f,
             color = Color.Black,
             start = Offset(x=0f,y=size.width*winningRow/6),
-            end = Offset(x=size.width,y = size.width*winningRow/6)
+            end = Offset(x=size.width,y = size.width*winningRow/6),
+            alpha = 0.6f
         )
     }
 }
@@ -95,7 +96,8 @@ fun VerticalWinLine(lineNumber: Int){
             strokeWidth =15f,
             color = Color.Black,
             start = Offset(x=size.width*winningColumn/6,y=0f),
-            end = Offset(x = size.width*winningColumn/6,y = size.height)
+            end = Offset(x = size.width*winningColumn/6,y = size.height),
+            alpha = 0.6f
         )
     }
 }
@@ -112,7 +114,8 @@ fun DiagonalWinLine(diagonalNumber: Int){
             strokeWidth =15f,
             color = Color.Black,
             start = Offset(x=result,y=0f),
-            end = Offset(x = offsetXPos ,y = size.height)
+            end = Offset(x = offsetXPos ,y = size.height),
+            alpha = 0.6f
         )
     }
 }

@@ -7,7 +7,7 @@ data class GameState(
     val playerCrossCount: Int = 0,
     val drawCount: Int =0,
     val currentTurn:BoardCellValue = BoardCellValue.CROSS,
-    val messageTurn: String = "Player 'X' turn",
+    val messageTurn: String = "Player X turn",
     val victoryType: VictoryType = VictoryType.NONE,
     val hasWon: Boolean = false
 
