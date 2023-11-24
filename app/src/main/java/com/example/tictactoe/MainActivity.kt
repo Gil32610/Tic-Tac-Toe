@@ -52,9 +52,13 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         val quarterWidth = constraints.maxWidth/3f
         HorizontalLine(maxWidth = constraints.maxWidth - 0f, quarterHeight)
         HorizontalLine(maxWidth = constraints.maxWidth -0f, yOffset =constraints.maxHeight - quarterHeight)
-
         VerticalLine(xOffset =quarterWidth , maxHeight = (constraints.maxHeight + 0f))
         VerticalLine(xOffset = constraints.maxWidth - quarterWidth, maxHeight = (constraints.maxHeight + 0f))
+        val width = constraints.maxWidth
+        val height =constraints.maxHeight
+        Text(
+            text = "width: $width\nheight: $height"
+        )
     }
 }
 
